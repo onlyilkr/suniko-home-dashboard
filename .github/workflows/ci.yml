@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Tests, translations and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - name: Python syntax
+        run: python3 -m py_compile st_auth.py dev-server.py
+      - name: Shell syntax
+        run: bash -n build.sh && bash -n gen-secrets.sh
+      - name: Tizen config is valid XML
+        run: python3 -c "import xml.dom.minidom as m; m.parse('app/config.xml')"

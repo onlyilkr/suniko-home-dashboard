@@ -1,0 +1,25 @@
+{
+  "appName": "suniko-home-preview-CHANGE-ME-UNIQUE",
+  "displayName": "Suniko Home (desktop preview)",
+  "description": "Separate OAuth app for the desktop preview (dev-server.py)",
+  "appType": "API_ONLY",
+  "classifications": [
+    "CONNECTED_SERVICE"
+  ],
+  "singleInstance": true,
+  "installMetadata": {},
+  "apiOnly": {},
+  "oauth": {
+    "clientName": "Suniko Home (preview)",
+    "scope": [
+      "r:devices:*",
+      "x:devices:*",
+      "r:locations:*",
+      "r:scenes:*",
+      "x:scenes:*"
+    ],
+    "redirectUris": [
+      "https://httpbin.org/get"
+    ]
+  }
+}

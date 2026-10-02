@@ -1,0 +1,27 @@
+{
+  "name": "suniko-home-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A calm, glanceable home screen for Samsung Tizen TVs: clock, live-sky weather, SmartThings home, prayer times and a developer hub.",
+  "license": "MIT",
+  "author": "İlker Güldalı (https://github.com/onlyilkr)",
+  "homepage": "https://github.com/onlyilkr/suniko-home-dashboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onlyilkr/suniko-home-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onlyilkr/suniko-home-dashboard/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "python3 dev-server.py",
+    "test": "node tools/test-hub.js && node tools/check-i18n.js && node tools/lint.js",
+    "lint": "node tools/lint.js"
+  },
+  "devDependencies": {
+    "acorn": "^8.14.0"
+  }
+}

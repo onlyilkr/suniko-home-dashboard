@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Installation help
+    url: https://github.com/onlyilkr/suniko-home-dashboard/blob/main/docs/SETUP.md
+    about: The step-by-step setup guide, including troubleshooting for sdb and certificates.
+  - name: Security issue
+    url: https://github.com/onlyilkr/suniko-home-dashboard/security/advisories/new
+    about: Please report vulnerabilities privately, not as an issue.

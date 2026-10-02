@@ -1,0 +1,54 @@
+name: Bug report
+description: Something does not work or looks wrong on the TV or in the preview.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead. Screenshots or a photo of the TV help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce with the remote
+      placeholder: "1. Open settings with ◀\n2. ..."
+    validations:
+      required: true
+  - type: input
+    id: tv
+    attributes:
+      label: TV model and Tizen version
+      description: Settings → Support → About This TV.
+      placeholder: QE55QN85D, Tizen 9.0
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where does it happen?
+      options:
+        - On the TV only
+        - In the desktop preview too
+        - Only in the desktop preview
+    validations:
+      required: true
+  - type: dropdown
+    id: features
+    attributes:
+      label: Which part is involved?
+      multiple: true
+      options:
+        - Clock, date or weather
+        - Themes or the weather scene
+        - SmartThings (panel, controls, notifications)
+        - Developer hub
+        - Prayer times
+        - Settings or the top menu
+        - Installation (build.sh, certificates, sdb)
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: The version attribute in app/config.xml, or the commit you built.

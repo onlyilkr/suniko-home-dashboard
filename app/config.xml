@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/onlyilkr/suniko-home-dashboard" version="1.0.0" viewmodes="maximized">
+  <tizen:application id="SUNIKOHOME.SunikoHome" package="SUNIKOHOME" required_version="6.5"/>
+  <name>Suniko Home</name>
+  <description>A calm, glanceable home screen for Samsung TVs: clock, live-sky weather, SmartThings home, prayer times and a developer hub.</description>
+  <author href="https://github.com/onlyilkr">İlker Güldalı</author>
+  <license href="https://opensource.org/licenses/MIT">MIT</license>
+  <icon src="icon.png"/>
+  <content src="index.html"/>
+  <feature name="http://tizen.org/feature/screen.size.all"/>
+  <access origin="https://api.open-meteo.com" subdomains="false"/>
+  <access origin="https://ipwho.is" subdomains="false"/>
+  <access origin="https://api.smartthings.com" subdomains="false"/>
+  <access origin="https://ezanvakti.emushaf.net" subdomains="false"/>
+  <access origin="https://api.aladhan.com" subdomains="false"/>
+  <access origin="https://commons.wikimedia.org" subdomains="false"/>
+  <access origin="https://upload.wikimedia.org" subdomains="false"/>
+  <access origin="https://hacker-news.firebaseio.com" subdomains="false"/>
+  <access origin="https://hn.algolia.com" subdomains="false"/>
+  <access origin="https://api.github.com" subdomains="false"/>
+  <access origin="https://status.claude.com" subdomains="false"/>
+  <access origin="https://www.githubstatus.com" subdomains="false"/>
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:profile name="tv-samsung"/>
+  <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+  <tizen:metadata key="http://samsung.com/tv/metadata/multitasking.support" value="true"/>
+</widget>

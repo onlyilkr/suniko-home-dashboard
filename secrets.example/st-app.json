@@ -1,0 +1,25 @@
+{
+  "appName": "suniko-home-CHANGE-ME-UNIQUE",
+  "displayName": "Suniko Home",
+  "description": "Suniko Home (Samsung TV home screen) access to SmartThings",
+  "appType": "API_ONLY",
+  "classifications": [
+    "CONNECTED_SERVICE"
+  ],
+  "singleInstance": true,
+  "installMetadata": {},
+  "apiOnly": {},
+  "oauth": {
+    "clientName": "Suniko Home",
+    "scope": [
+      "r:devices:*",
+      "x:devices:*",
+      "r:locations:*",
+      "r:scenes:*",
+      "x:scenes:*"
+    ],
+    "redirectUris": [
+      "https://httpbin.org/get"
+    ]
+  }
+}

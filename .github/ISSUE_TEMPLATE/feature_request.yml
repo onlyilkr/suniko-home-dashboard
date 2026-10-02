@@ -1,0 +1,16 @@
+name: Feature request
+description: Suggest an idea for the home screen or the developer hub.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to see on your TV?
+      description: Describe the need first, then the idea. Remember it has to work with a remote and be readable from the couch.
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data source
+      description: If it needs data, which public source could provide it without an account or key?
