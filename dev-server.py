@@ -7,6 +7,9 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'app')
 ST_API = 'https://api.smartthings.com/v1'
 ST_WRITE = os.environ.get('ST_WRITE') == '1'
 LOCK = threading.Lock()
+HOSTS = {'127.0.0.1:%d' % PORT, 'localhost:%d' % PORT}
+ORIGINS = {'http://' + h for h in HOSTS}
+SECRETS_JS = os.path.join(ROOT, 'secrets.js')
 
 def dev_token():
     try:
@@ -30,6 +33,24 @@ class H(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header('Cache-Control', 'no-store')
         super().end_headers()
+    def _gate(self):
+        site, mode = self.headers.get('Sec-Fetch-Site'), self.headers.get('Sec-Fetch-Mode')
+        if self.headers.get('Host', '').lower() not in HOSTS: reason = 'unknown host'
+        elif site in ('cross-site', 'same-site') and mode != 'navigate': reason = 'cross-site request'
+        else: return True
+        self.send_error(403, reason)
+        return False
+    def _is_secrets(self):
+        p = self.translate_path(self.path).rstrip('/' + os.sep)
+        if os.path.basename(p).lower() == 'secrets.js': return True
+        try: return os.path.samefile(p, SECRETS_JS)
+        except OSError: return False
+    def send_head(self):
+        if self._is_secrets(): self.send_error(404); return None
+        return super().send_head()
+    def list_directory(self, path):
+        self.send_error(404)
+        return None
     def _st(self, method):
         path = self.path[len('/st'):]
         if not path.startswith('/') or path.startswith('//'): self.send_error(400, 'invalid path'); return
@@ -51,13 +72,18 @@ class H(http.server.SimpleHTTPRequestHandler):
         except Exception as e:
             status, ct, data = 502, 'text/plain; charset=utf-8', str(e).encode()
         self.send_response(status); self.send_header('Content-Type', ct); self.end_headers(); self.wfile.write(data)
+    def do_HEAD(self):
+        if self._gate(): super().do_HEAD()
     def do_GET(self):
+        if not self._gate(): return
         if self.path.startswith('/st/'): return self._st('GET')
-        if self.path.split('?')[0] == '/secrets.js':
+        if self._is_secrets():
             body = ('window.SECRETS = ' + json.dumps(preview_secrets()) + ';\n').encode()
             self.send_response(200); self.send_header('Content-Type', 'application/javascript'); self.end_headers(); self.wfile.write(body); return
         return super().do_GET()
     def do_POST(self):
+        if not self._gate(): return
+        if self.headers.get('Origin') not in ORIGINS: self.send_error(403, 'cross-origin request'); return
         if self.path.startswith('/st/'):
             if not ST_WRITE:
                 body = json.dumps({'error': 'Device commands are blocked in the preview (set ST_WRITE=1 to allow)'}).encode()

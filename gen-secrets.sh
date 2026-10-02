@@ -22,6 +22,8 @@ if sec is None:
     if os.path.exists(out): os.remove(out)
     print('gen-secrets: warning: no SmartThings credentials, the smart home panel stays off.', file=sys.stderr)
 else:
-    with open(out, 'w', encoding='utf-8') as f:
+    fd = os.open(out, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    os.chmod(out, 0o600)
+    with os.fdopen(fd, 'w', encoding='utf-8') as f:
         f.write('window.SECRETS = ' + json.dumps(sec) + ';\n')
 PY

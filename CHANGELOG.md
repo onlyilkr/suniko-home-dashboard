@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Security
+
+- Desktop preview server: `app/secrets.js` could be read through other spellings of its path (`/Secrets.js`, `/./secrets.js`), including from other websites through a script tag in browsers without local network protection; any `Host` header was accepted (DNS rebinding). The server now checks the `Host`, `Sec-Fetch-Site` and `Origin` headers, never serves the real file and lists no directories.
+- `gen-secrets.sh` writes `app/secrets.js` readable by the owner only.
+
 ## [1.0.0] - 2026-10-02
 
 First public release.
@@ -17,4 +24,5 @@ First public release.
 - Demo mode (`?demo`, with selectable weather) for trying the app without an account.
 - Desktop preview server, setup guide, architecture notes, unit tests, translation check and a lint for ES5 and comment-free code; CI on GitHub Actions.
 
+[Unreleased]: https://github.com/onlyilkr/suniko-home-dashboard/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/onlyilkr/suniko-home-dashboard/releases/tag/v1.0.0
